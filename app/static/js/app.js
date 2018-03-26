@@ -60,6 +60,17 @@ Vue.component('app-news-list', {
                 </div>
             </div>
         </div>
+        
+        <div class="form-inline d-flex justify-content-center">
+            <div class="form-group mx-sm-3 mb-2">
+                <label class="sr-only" for="search">Search</label>
+                <input type="search" name="search" v-model="searchTerm"
+                id="search" class="form-control mb-2 mr-sm-2" placeholder="Enter
+                search term here" />
+                <p>You are searching for {{ searchTerm }}</p>
+            </div>
+         </div>
+         <button class="btn btn-primary mb-2" @click="searchNews">Search</button>
     `,
     created: function() {
         let self = this;
@@ -75,8 +86,23 @@ Vue.component('app-news-list', {
     },
     data: function(){
         return {
-            articles: []
+            articles: [],
+            searchTerm:''
         }
+    },
+    methods: {
+        searchNews: function() {
+        let self = this;
+        fetch('https://newsapi.org/v2/everything?q='+
+        self.searchTerm + '&language=en&apiKey=')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+        console.log(data);
+        self.articles = data.articles;
+        });
+      }
     }
 })
 
