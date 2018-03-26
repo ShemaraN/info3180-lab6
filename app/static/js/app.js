@@ -41,13 +41,24 @@ Vue.component('app-footer', {
 
 Vue.component('app-news-list', {
     template:`
-        <div class="news">
-        <h2>News</h2>
-        <ul class="news__list">
-        <li class="news__item">News item 1</li>
-        <li class="news__item">News item 2</li>
-        <li class="news__item">News item 3</li>
-        </ul>
+        <section id="blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 text-center">
+                    <h2><span class="ion-minus"></span>News<span class="ion-minus"></span></h2>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" v-for="article in articles">
+                    <div class="blog column text-center">
+                        <img :src='article.urlToImage' alt="" width="100%">
+                        <h4>{{ article.title }}</h4>
+                        <p>{{ article.description }}</p>
+                        <a  :href='article.url'>Read More</a>
+                    </div>
+                </div>
+            </div>
         </div>
     `,
     created: function() {
