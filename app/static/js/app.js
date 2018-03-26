@@ -48,7 +48,25 @@ Vue.component('app-news-list', {
         <li class="news__item">News item 2</li>
         <li class="news__item">News item 3</li>
         </ul>
-        </div>    `
+        </div>
+    `,
+    created: function() {
+        let self = this;
+        
+        fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=')
+        .then(function(response) {
+        return response.json();
+        })
+        .then(function(data) {
+        console.log(data);
+        self.articles = data.articles;
+        });
+    },
+    data: function(){
+        return {
+            articles: []
+        }
+    }
 })
 
 let app = new Vue({
