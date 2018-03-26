@@ -39,7 +39,7 @@ Vue.component('app-footer', {
     }
 })
 
-Vue.component('app-news-list', {
+const NewsList = Vue.component('app-news-list', {
     template:`
         <section id="blog">
         <div class="container">
@@ -106,10 +106,31 @@ Vue.component('app-news-list', {
     }
 })
 
-let app = new Vue({
-    el: '#app',
-    data: {
-        welcome: 'Hello World! Welcome to VueJS'
+const Home = Vue.component('home', {
+    template: `
+        <div class="home">
+            <img src="/static/images/logo.png" alt="VueJS Logo">
+            <h1>{{ welcome }}</h1>
+        </div>
+        `,
+        data: function() {
+          return {
+            welcome: 'Hello World! Welcome to VueJS'
+        }
     }
+});
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        { path: '/', component: Home },
+        { path: '/news', component: NewsList }
+    ]
+});
+
+
+const app = new Vue({
+    el: '#app',
+    router
 });
 
